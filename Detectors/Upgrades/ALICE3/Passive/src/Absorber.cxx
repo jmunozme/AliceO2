@@ -32,7 +32,6 @@
 
 using namespace o2::passive;
 
-
 Alice3Absorber::~Alice3Absorber() = default;
 
 Alice3Absorber::Alice3Absorber() : Alice3PassiveBase("A3ABSO", "") {}
@@ -62,8 +61,6 @@ void Alice3Absorber::createMaterials()
   Float_t sxmgmx = 10.;
   o2::base::Detector::initFieldTrackingParams(isxfld, sxmgmx);
 
-
-
   //
   // Steel
   //
@@ -79,7 +76,6 @@ void Alice3Absorber::createMaterials()
   float dAir = 1.20479E-3;
   float dAir1 = 1.20479E-11;
 
-
   // ****************
   //     Defines tracking media parameters.
   //
@@ -92,11 +88,8 @@ void Alice3Absorber::createMaterials()
   // ***************
   //
 
-
-
-
-  matmgr.Mixture("ALICE3ABSO", 16, "VACUUM0$", aAir, zAir, dAir1, 4, wAir); 
-  matmgr.Medium("ALICE3ABSO", 16,  "VA_C0", 16, 0, isxfld, sxmgmx, tmaxfd, stemax, deemax, epsil, stmin);
+  matmgr.Mixture("ALICE3ABSO", 16, "VACUUM0$", aAir, zAir, dAir1, 4, wAir);
+  matmgr.Medium("ALICE3ABSO", 16, "VA_C0", 16, 0, isxfld, sxmgmx, tmaxfd, stemax, deemax, epsil, stmin);
 
   //
   //    Steel
@@ -106,12 +99,7 @@ void Alice3Absorber::createMaterials()
   matmgr.Medium("ALICE3ABSO", 19, "ST_C0", 19, 0, isxfld, sxmgmx, tmaxfd, stemax, deemax, epsil, stmin);
   matmgr.Medium("ALICE3ABSO", 39, "ST_C1", 39, 0, isxfld, sxmgmx, tmaxfd, stemax, deemax, epsil, stmin);
   matmgr.Medium("ALICE3ABSO", 59, "ST_C3", 59, 0, isxfld, sxmgmx, tmaxfd, stemax, deemax, epsil, stmin);
-
-
-
 }
-
-
 
 void Alice3Absorber::ConstructGeometry()
 {
@@ -123,13 +111,10 @@ void Alice3Absorber::ConstructGeometry()
   //
 
   auto& matmgr = o2::base::MaterialManager::Instance();
-  
 
   //
   // Media
   //
-
-
 
   auto kMedVac = matmgr.getTGeoMedium("ALICE3ABSO_VA_C0");
   auto kMedSteel = matmgr.getTGeoMedium("ALICE3ABSO_ST_C0");
@@ -144,42 +129,39 @@ void Alice3Absorber::ConstructGeometry()
 
   TGeoPcon* absorings = new TGeoPcon(0., 360., 18);
 
-   absorings->DefineSection(0,500,236,274);
-   absorings->DefineSection(1,400,236,274);
-   absorings->DefineSection(2,400,232.5,277.5);
-   absorings->DefineSection(3,300,232.5,277.5);
-   absorings->DefineSection(4,300,227.5,282.5);
-   absorings->DefineSection(5,200,227.5,282.5);
-   absorings->DefineSection(6,200,222.5,287.5);
-   absorings->DefineSection(7,100,222.5,287.5);
-   absorings->DefineSection(8,100,220,290);
-   absorings->DefineSection(9,-100,220,290);
-   absorings->DefineSection(10,-100,222.5,287.5);
-   absorings->DefineSection(11,-200,222.5,287.5);
-   absorings->DefineSection(12,-200,227.5,282.5);
-   absorings->DefineSection(13,-300,227.5,282.5);
-   absorings->DefineSection(14,-300,232.5,277.5);
-   absorings->DefineSection(15,-400,232.5,277.5);
-   absorings->DefineSection(16,-400,236,274);
-   absorings->DefineSection(17,-500,236,274);
+  absorings->DefineSection(0, 500, 236, 274);
+  absorings->DefineSection(1, 400, 236, 274);
+  absorings->DefineSection(2, 400, 232.5, 277.5);
+  absorings->DefineSection(3, 300, 232.5, 277.5);
+  absorings->DefineSection(4, 300, 227.5, 282.5);
+  absorings->DefineSection(5, 200, 227.5, 282.5);
+  absorings->DefineSection(6, 200, 222.5, 287.5);
+  absorings->DefineSection(7, 100, 222.5, 287.5);
+  absorings->DefineSection(8, 100, 220, 290);
+  absorings->DefineSection(9, -100, 220, 290);
+  absorings->DefineSection(10, -100, 222.5, 287.5);
+  absorings->DefineSection(11, -200, 222.5, 287.5);
+  absorings->DefineSection(12, -200, 227.5, 282.5);
+  absorings->DefineSection(13, -300, 227.5, 282.5);
+  absorings->DefineSection(14, -300, 232.5, 277.5);
+  absorings->DefineSection(15, -400, 232.5, 277.5);
+  absorings->DefineSection(16, -400, 236, 274);
+  absorings->DefineSection(17, -500, 236, 274);
 
   // Insert
   absorings->SetName("absorings");
 
-  TGeoVolume* abso = new TGeoVolume("Absorber", absorings,kMedSteel);
+  TGeoVolume* abso = new TGeoVolume("Absorber", absorings, kMedSteel);
 
   abso->SetVisibility(1);
   abso->SetTransparency(50);
   abso->SetLineColor(kGray);
 
-
   //
   //    Adding volumes to mother volume
   //
 
-  barrel->AddNode(abso,1,new TGeoTranslation(0, 30.f, 0));
-
-
+  barrel->AddNode(abso, 1, new TGeoTranslation(0, 30.f, 0));
 }
 
 FairModule* Alice3Absorber::CloneModule() const { return new Alice3Absorber(*this); }

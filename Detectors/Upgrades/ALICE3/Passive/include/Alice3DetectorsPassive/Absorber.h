@@ -21,18 +21,16 @@ namespace passive
 class Alice3Absorber : public Alice3PassiveBase
 {
  public:
-  
-   Alice3Absorber(const char* name, const char* Title = "ALICE3 Absorber");
-   Alice3Absorber();
+  Alice3Absorber(const char* name, const char* Title = "ALICE3 Absorber");
+  Alice3Absorber();
   ~Alice3Absorber() override;
-    void ConstructGeometry() override;
-    void createMaterials();
+  void ConstructGeometry() override;
+  void createMaterials();
 
   /// Clone this object (used in MT mode only)
   FairModule* CloneModule() const override;
 
  private:
-
   Alice3Absorber(const Alice3Absorber& orig);
   Alice3Absorber& operator=(const Alice3Absorber&);
 
